@@ -16,6 +16,7 @@ const db = mysql.createConnection({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  port: PORT,
 });
 
 db.connect((err) => {
