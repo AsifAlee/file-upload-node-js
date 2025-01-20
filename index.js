@@ -19,7 +19,13 @@ db.connect((err) => {
   if (err) throw err;
   console.log("Connected to the database!");
 });
-console.log("k");
+console.log(
+  "db host:",
+  process.env.DB_HOST,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  process.env.DB_NAME
+);
 
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
