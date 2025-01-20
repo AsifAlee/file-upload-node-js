@@ -39,6 +39,7 @@ let db;
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     });
+
     console.log("Connected to the database!");
   } catch (err) {
     console.error("Database connection error:", err.message);
