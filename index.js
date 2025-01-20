@@ -5,6 +5,10 @@ const mysql = require("mysql2");
 require("dotenv").config();
 
 const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3000;
 
 const db = mysql.createConnection({
@@ -12,8 +16,6 @@ const db = mysql.createConnection({
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "test",
-
-  port: PORT,
 });
 
 db.connect((err) => {
@@ -43,10 +45,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // File upload route
 
