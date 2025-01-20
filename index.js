@@ -84,6 +84,28 @@ app.get("/create-customers-table", (req, res) => {
   });
 });
 
+app.get("/create-file-table", (req, res) => {
+  const sql = `
+CREATE TABLE myFiles (
+  id int NOT NULL AUTO_INCREMENT,
+  filename varchar(255) NOT NULL,
+  path varchar(255) NOT NULL,
+  mimetype varchar(50) NOT NULL,
+  size bigint NOT NULL,
+  uploaded_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+  `;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error creating table:", err.message);
+      return res.status(500).send("Error creating customers table.");
+    }
+    res.send("Customers table created successfully.");
+  });
+});
+
 app.get("/file/:filename", (req, res) => {
   console.log("file routes", __dirname);
   const { filename } = req.params;
