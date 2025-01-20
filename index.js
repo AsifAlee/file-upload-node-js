@@ -111,6 +111,10 @@ app.post("/add-customer", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello file uploader");
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
