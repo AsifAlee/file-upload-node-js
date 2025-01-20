@@ -57,7 +57,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   // Save file details to the database
   const sql =
-    "INSERT INTO myfiles (filename, path, mimetype, size) VALUES (?, ?, ?, ?)";
+    "INSERT INTO myFiles (filename, path, mimetype, size) VALUES (?, ?, ?, ?)";
   const values = [file.filename, file.path, file.mimetype, file.size];
 
   db.query(sql, values, (err, result) => {
