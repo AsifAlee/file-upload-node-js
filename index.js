@@ -1,31 +1,49 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-const mysql = require("mysql2"); // Or mongoose for MongoDB
+// const mysql = require("mysql2");
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Database connection (MySQL example)
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "test",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  port: PORT,
-});
+// const db = mysql.createConnection({
+//   host: process.env.DB_HOST || "localhost",
+//   user: process.env.DB_USER || "root",
+//   password: process.env.DB_PASSWORD || "",
+//   database: process.env.DB_NAME || "test",
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0,
+//   port: PORT,
+// });
 
-db.connect((err) => {
-  if (err) {
-    console.log("the error thrown is:", err);
-    throw err;
+// db.connect((err) => {
+//   if (err) {
+//     console.log("the error thrown is:", err);
+//     throw err;
+//   }
+//   console.log("Connected to the database!");
+// });
+
+const mysql = require("mysql2/promise");
+
+// Create the connection
+let db;
+(async () => {
+  try {
+    db = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    });
+    console.log("Connected to the database!");
+  } catch (err) {
+    console.error("Database connection error:", err.message);
   }
-  console.log("Connected to the database!");
-});
+})();
 console.log(
   "db host:",
   process.env.DB_HOST,
